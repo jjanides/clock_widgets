@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pomodoro Timer</title>
+  <style>
+    body {
+      background-color: #f0f5f4;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .timer {
+      width: 300px;
+      margin: 50px auto;
+      background-color: #dbe2dd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #4b635b;
+    }
+
+    .time-display {
+      font-size: 48px;
+      color: #4b635b;
+      margin: 30px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4b635b;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+
+    button:hover {
+      background-color: #628b7d;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer">
+    <h1>Pomodoro Timer</h1>
+    <div class="time-display" id="time-display">25:00</div>
+    <div class="buttons">
+      <button onclick="startTimer(25)">25 min</button>
+      <button onclick="startTimer(5)">5 min</button>
+      <button onclick="startTimer(10)">10 min</button>
+      <button onclick="startTimer(15)">15 min</button>
+      <button onclick="stopTimer()">Stop</button>
+      <button onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    var timeDisplay = document.getElementById("time-display");
+    var timer;
+    var minutes = 0;
+    var seconds = 0;
+
+    function startTimer(duration) {
+      clearInterval(timer);
+      minutes = duration;
+      seconds = 0;
+      updateTimerDisplay();
+
+      timer = setInterval(decrementTimer, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timer);
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      minutes = 0;
+      seconds = 0;
+      updateTimerDisplay();
+    }
+
+    function decrementTimer() {
+      if (minutes === 0 && seconds === 0) {
+        stopTimer();
+        // Add code for displaying a notification or playing a sound
+      } else {
+        if (seconds === 0) {
+          minutes--;
+          seconds = 59;
+        } else {
+          seconds--;
+        }
+        updateTimerDisplay();
+      }
+    }
+
+    function updateTimerDisplay() {
+      var minutesDisplay = minutes < 10 ? "0" + minutes : minutes;
+      var secondsDisplay = seconds < 10 ? "0" + seconds : seconds;
+      timeDisplay.textContent = minutesDisplay + ":" + secondsDisplay;
+    }
+  </script>
+</body>
+</html>
